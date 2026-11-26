@@ -1,0 +1,8 @@
+{
+  "whoosh": ["a quick short air whoosh, a fast camera whip pan, dry, no music", 0.6],
+  "shatter": ["an old painted plaster panel cracks and shatters into pieces that clatter onto a wooden floor, dry room", 1.4],
+  "stamp": ["a loud heavy rubber stamp slammed down on a wooden desk, one sharp thud", 0.6],
+  "curtain": ["a heavy velvet theatre curtain swooshing down quickly", 0.9],
+  "tear": ["a sheet of thick paper torn quickly in one long rip", 0.8],
+  "flip": ["a stiff card flipped over quickly on a table, one soft flap", 0.5]
+}

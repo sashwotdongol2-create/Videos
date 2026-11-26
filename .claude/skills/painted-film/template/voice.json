@@ -1,0 +1,9 @@
+{
+  "model": "eleven_v4",
+  "speed": 1.05,
+  "lines": [
+    {"id": "l1", "voice": "6u6JbqKdaQy89ENzLSju", "text": "[casual] The first line.", "stab": 0.45},
+    {"id": "n1", "voice": "Dslrhjl3ZpzrctukrQSN", "text": "[matter-of-fact] The narrator explains.", "stab": 0.5}
+  ],
+  "cut": []
+}

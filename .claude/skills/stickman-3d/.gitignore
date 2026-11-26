@@ -1,0 +1,9 @@
+# machine-local: the venv this computer runs the skill with
+package/.venv/
+__pycache__/
+# machine paths (`stickman3d.py config --set ...` writes it; without it the CLI uses its defaults).
+package/config.json
+# old backups and a sister tool's evaluation results: not needed to run the skill (kept on disk, not in git)
+package/_bak_facerig/
+package/*.bak
+package/sister_skills/earshot/eval/forge/results_*.json

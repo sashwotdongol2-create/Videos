@@ -1,0 +1,1 @@
+[energetic] Replace this file with the plain narration, word for word identical to vo_tags.txt without the bracket tags.

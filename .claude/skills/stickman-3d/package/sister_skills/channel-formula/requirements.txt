@@ -1,0 +1,17 @@
+# Python 3.11. torch + torchaudio are installed first from the CPU index by setup.py.
+yt-dlp[default]==2026.10.26
+opencv-python==5.0.0.93
+numpy==2.2.6
+pandas==3.1.1
+pyarrow
+scipy==1.17.1
+scikit-learn
+scenedetect[opencv]==0.7.2
+librosa==0.11.0
+soundfile
+pyloudnorm
+faster-whisper==1.2.1
+demucs==4.1.0
+easyocr==1.7.2
+matplotlib
+textstat

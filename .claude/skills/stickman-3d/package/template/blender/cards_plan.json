@@ -1,0 +1,7 @@
+{
+ "_doc": "flat-card fallback (stickman3d.py cards): static states only. Every entry -> exprs x poses x blink 0/1 (x mouth 0/0.5/0.9 when mouth is true). Poses: stand walk run sit lie pointR pointL armsUp wave hold crouch dead. prop = a held prop drawn on the card (cast.ts prop ids).",
+ "static": [
+  {"who": "extra1", "exprs": ["neutral", "happy"], "poses": ["stand"], "prop": null, "mouth": false},
+  {"who": "partner", "exprs": ["sad"], "poses": ["lie", "stand"], "prop": null, "mouth": false}
+ ]
+}

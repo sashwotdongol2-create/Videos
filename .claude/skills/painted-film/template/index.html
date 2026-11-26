@@ -1,0 +1,60 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>painted film</title>
+<style>
+@font-face { font-family: 'InterBlack'; src: url(fonts/inter-latin-900-normal.woff2); }
+@font-face { font-family: 'OldItalic'; src: url(fonts/OldStandard-Italic.ttf); }
+html, body { margin: 0; background: #111; } canvas { display: block; width: 540px; height: 960px; }
+</style></head>
+<body><canvas id="c" width="1080" height="1920"></canvas>
+<script src="painted.js"></script>
+<script>
+// A painted film. Replace the assets, LINES, scenes and SHOTS; keep the shape:
+//   scenes are (t, f) => draws a whole frame on P.X;  SHOTS is the edit: each shot is a scene, or a transition
+//   between two scenes; renderAt picks the shot for t. The kit's catalogue: .claude/skills/painted-film/references/.
+P.init(document.getElementById('c'));
+window.DURATION = 8.0;
+
+// voice lines (vo/<id>.wav from make_vo.py; durations in vo/lines.json). kind: 'q' asked, 'a' the answer to copy
+const LINES = [
+  { id: 'l1', who: 'hero', t: 0.4, d: 2.0, text: 'The first line.', kind: 'a' },
+  { id: 'n1', who: 'n', t: 4.2, d: 2.0, text: 'The narrator explains.' },
+];
+
+// scenes
+function sceneA(t, f) {   // a painting as the whole picture, a figure standing in it
+  P.painting(P.IMG.a, t, f, { span: [0, 4], z0: 1.0, z1: 1.05 });
+  P.figure('hero', 540, 1590, 860, f, { talk: P.talking(LINES, 'hero', t) });
+  P.drop([{ text: 'Big title', font: 'InterBlack', size: 104 }, { text: 'in two voices.', font: 'OldItalic', size: 120 }], 260, t, 0.2, f);
+}
+function sceneB(t, f) {   // a flat room
+  P.room(P.COLORS.cobalt, P.COLORS.beige, f);
+  P.figure('hero', 540, 1560, 820, f, {});
+  P.el.stamp('YES.', 540, 600, t, 5.2);
+}
+
+// the edit: [start, end, kind, ...]
+const SHOTS = [
+  [0, 3.4, sceneA],
+  [3.4, 4.2, 'tr', 'shatter', sceneA, sceneB, {}],
+  [4.2, 8.0, sceneB],
+];
+window.renderAt = async function (t0) {
+  const f = Math.floor(t0 * P.FPS + 1e-6), t = f / P.FPS, X = P.X;
+  X.setTransform(1, 0, 0, 1, 0, 0); X.fillStyle = P.COLORS.night; X.fillRect(0, 0, P.W, P.H);
+  const s = SHOTS.find(s => t >= s[0] && t < s[1]) || SHOTS[SHOTS.length - 1];
+  if (s[2] === 'tr') P.tr[s[3]](t, [s[0], s[1]], s[4], s[5], s[6]); else P.camera(t, () => s[2](t, f), { z: P.dolly(t, 0.4, 2.4) });
+  P.captions(LINES, t, f);
+  P.finish(f);
+};
+window.MIX = {
+  lines: LINES.map(L => ({ id: L.id, t: L.t })),
+  beds: [{ file: '../sfx-library/amb_office.mp3', from: 0, mean: -47 }],
+  cues: [{ file: 'sfx/shatter.mp3', t: 3.5, peak: -20 }],
+};
+(async () => {
+  await P.loadAll({ a: 'assets/a.jpg', hero: 'assets/hero.png' });
+  P.textures();
+  await document.fonts.load('104px InterBlack'); await document.fonts.load('120px OldItalic');
+  await window.renderAt(0); window.READY = true;
+})();
+</script></body></html>
